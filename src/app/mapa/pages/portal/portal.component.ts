@@ -8,13 +8,11 @@ import { Map, control, tileLayer } from 'leaflet';
 })
 export class PortalComponent implements AfterViewInit {
   ngAfterViewInit(): void {
-    const map = new Map('map', {
-      zoomControl: false,
-      minZoom: 6
-    }
-    ).setView([-9.1963858, -75.3050354], 6);
-    tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    const map = new Map('map', { zoomControl: false, minZoom: 6 }).setView([-9.1963858, -75.3050354], 6);
+    tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      attribution: '',
+      maxNativeZoom: 19,
+      maxZoom: 23,
     }).addTo(map);
     //Capas Base
 
