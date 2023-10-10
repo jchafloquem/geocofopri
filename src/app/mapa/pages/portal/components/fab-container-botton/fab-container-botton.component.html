@@ -1,29 +1,35 @@
-<div class="fab-container">
-  <div class="fab shadow">
-    <div class="fab-content animate-spin">
-      <span>1</span>
+<div class="absolute bottom-4 right-0 mb-7 mr-7 flex flex-col-reverse gap-4 ">
+  <div class="relative cursor-pointer flex justify-center items-center w-12  h-12 ">
+    <div (click)="mapaBaseView=!mapaBaseView"
+      class="btn-tool flex justify-center items-center w-full  h-full text-white bg-[#1bc5bd] hover:bg-white  hover:text-[#1bc5bd]  transition duration-300 ease-in-out  rounded-full">
+      <span class=" animate-spin ">1</span>
+
+
+
+    </div>
+    <div *ngIf="mapaBaseView" class="absolute flex flex-col-reverse bottom-16   gap-4 ">
+      <div *ngFor="let data of data" class="relative cursor-pointer flex justify-center items-center w-12  h-12 ">
+        <div (click)="data.childrenView=!data.childrenView"
+          class="btn-tool flex justify-center items-center w-full  h-full text-white bg-[#1bc5bd] hover:bg-white  hover:text-[#eb9913]  transition duration-300 ease-in-out  rounded-full">
+          <span>{{data.icon}}</span>
+        </div>
+        <div *ngIf="data.childrenView" class="absolute flex flex-row top-0 right-16 gap-4 ">
+          <div *ngFor="let children of data.children" (click)="children?.f()"
+            class="relative cursor-pointer flex justify-center items-center w-12  h-12 ">
+            <div
+              class="btn-tool flex justify-center items-center w-full  h-full text-[#eb9913]  bg-white hover:bg-[#eb9913]   hover:text-white  transition duration-300 ease-in-out  rounded-full">
+              <span>{{children.icon}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
     </div>
   </div>
-  <div class="sub-button shadow">
-    <span>2</span>
-  </div>
-  <div class="sub-button shadow">
-    <span>3</span>
-  </div>
-  <div class="sub-button shadow">
-    <span>4</span>
-  </div>
-  <div class="sub-button shadow">
-    <span>5</span>
-  </div>
-  <div class="sub-button shadow">
-    <span>6</span>
-  </div>
-  <div class="sub-button shadow">
-    <span>7</span>
-  </div>
-  <div class="sub-button shadow">
-    <span>8</span>
-  </div>
+
+  <!-- <div class="w-full bg-red-500" (click)=" data[0].children[0].f()">{{data[0].children[0].icon}}</div> -->
+
+
 
 </div>

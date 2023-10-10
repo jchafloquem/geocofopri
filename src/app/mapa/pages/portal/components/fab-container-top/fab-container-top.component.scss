@@ -1,0 +1,15 @@
+.btn-tool:hover:before {
+	content: '';
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 54px;
+	height: 54px;
+	margin: -27px 0 0 -27px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	border-top-color: #eb9913;
+	animation: spin 2s linear infinite;
+	-webkit-animation: spin 2s linear infinite;
+	z-index: -1 !important;
+}
