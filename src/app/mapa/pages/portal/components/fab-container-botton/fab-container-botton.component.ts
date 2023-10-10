@@ -3,6 +3,7 @@ import {PortalService} from '../../service/portal.service';
 
 export interface data {
 	icon: string;
+	iconsvg?: string;
 	descripcion: string;
 	f?: () => void;
 	childrenView: boolean;
@@ -20,13 +21,35 @@ export class FabContainerBottonComponent {
 	mapaBaseView2 = false;
 	data: data[] = [
 		{
-			icon: '1',
+			icon: 'edit',
 			descripcion: '',
 			f: () => this._portalService.mapabase('Callejero'),
 			childrenView: false,
 			children: [
 				{
-					icon: '1',
+					icon: 'polyline',
+
+					descripcion: '',
+					f: () => this._portalService.mapabase('Callejero'),
+					childrenView: false,
+				},
+				{
+					icon: 'architecture',
+
+					descripcion: '',
+					f: () => this._portalService.mapabase('Callejero'),
+					childrenView: false,
+				},
+				{
+					icon: 'draw',
+
+					descripcion: '',
+					f: () => this._portalService.mapabase('Callejero'),
+					childrenView: false,
+				},
+				{
+					icon: 'shape_line',
+
 					descripcion: '',
 					f: () => this._portalService.mapabase('Callejero'),
 					childrenView: false,
@@ -34,50 +57,60 @@ export class FabContainerBottonComponent {
 			],
 		},
 		{
-			icon: '2',
+			icon: 'square_foot',
 			descripcion: '',
 			childrenView: false,
-			children: [
-				{
-					icon: '1',
-					descripcion: '',
-					f: () => this._portalService.mapabase('Topográfico'),
-					childrenView: false,
-				},
-				{
-					icon: '2',
-					descripcion: '',
-					f: () => this._portalService.mapabase('Topográfico'),
-					childrenView: false,
-				},
-			],
+			f: () => (this._portalService.MedirMapa = !this._portalService.MedirMapa),
 		},
 		{
-			icon: '3',
+			icon: 'print',
+			descripcion: '',
+			childrenView: false,
+		},
+		{
+			icon: 'search',
 			descripcion: '',
 			f: () => this._portalService.mapabase('Topográfico'),
 			childrenView: false,
 
 			children: [
 				{
-					icon: '1',
+					icon: 'zoom_in',
 					descripcion: '',
-					f: () => this._portalService.mapabase('Topográfico'),
+					f: () => this._portalService.zoomIn(),
 					childrenView: false,
 				},
 				{
-					icon: '2',
+					icon: 'zoom_out',
 					descripcion: '',
-					f: () => this._portalService.mapabase('Topográfico'),
-					childrenView: false,
-				},
-				{
-					icon: '1',
-					descripcion: '',
-					f: () => this._portalService.mapabase('Topográfico'),
+					f: () => this._portalService.zoomOut(),
 					childrenView: false,
 				},
 			],
+		},
+		{
+			icon: 'map',
+			descripcion: '',
+			f: () => this._portalService.mapabase('Topográfico'),
+			childrenView: false,
+		},
+		{
+			icon: 'upload',
+			descripcion: '',
+			f: () => this._portalService.mapabase('Topográfico'),
+			childrenView: false,
+		},
+		{
+			icon: 'download',
+			descripcion: '',
+			f: () => this._portalService.mapabase('Topográfico'),
+			childrenView: false,
+		},
+		{
+			icon: 'home',
+			descripcion: '',
+			f: () => this._portalService.mapabase('Topográfico'),
+			childrenView: false,
 		},
 	];
 }
