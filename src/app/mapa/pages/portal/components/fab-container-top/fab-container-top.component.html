@@ -1,0 +1,33 @@
+<div class="absolute top-auto right-0 mt-7 mr-7 flex flex-col gap-4 ">
+  <div class="cursor-pointer relative w-8 h-8 rounded-full bg-red-500">
+    <div (click)="mapaBaseView=!mapaBaseView" class="flex justify-center items-center w-full h-full">
+      <span>1</span>
+    </div>
+    <div *ngIf="mapaBaseView" class="absolute flex flex-row  top-0 right-12 gap-4 ">
+      <div (click)="_portalService.mapabase('Satélite')" class="flex justify-center items-center w-8 h-8 bg-blue-200 rounded-full">
+        <span>1</span>
+      </div>
+      <div (click)="_portalService.mapabase('Callejero')" class="flex justify-center items-center w-8 h-8 bg-blue-200 rounded-full">
+        <span>1</span>
+      </div>
+      <div (click)="_portalService.mapabase('Topográfico')" class="flex justify-center items-center w-8 h-8 bg-blue-200 rounded-full">
+        <span>1</span>
+      </div>
+    </div>
+  </div>
+  <div class="relative w-8 h-8 rounded-full bg-red-500 b">
+    <div class="flex justify-center items-center w-full h-full">
+      <span>1</span>
+    </div>
+  </div>
+  <div class="relative w-8 h-8 rounded-full bg-red-500">
+    <div class="flex justify-center items-center w-full h-full">
+      <span>1</span>
+    </div>
+  </div>
+  <div class="relative w-8 h-8 rounded-full bg-red-500">
+    <div class="flex justify-center items-center w-full h-full">
+      <span>1</span>
+    </div>
+  </div>
+</div>

@@ -1,12 +1,8 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject} from '@angular/core';
 import {NavigationStart, Router} from '@angular/router';
-import * as L from 'leaflet';
 import {Map, control, tileLayer} from 'leaflet';
 import {Subscription} from 'rxjs';
-
-type RouterNameMap = {
-	[key: string]: string;
-};
+import {PortalService} from './service/portal.service';
 
 @Component({
 	selector: 'app-portal',
@@ -14,32 +10,13 @@ type RouterNameMap = {
 	styleUrls: ['./portal.component.scss'],
 })
 export class PortalComponent implements AfterViewInit, OnInit {
+	public _portalService = inject(PortalService);
+
 	public floatButton = false;
 	showMenu = false;
-	map: L.Map | undefined;
 	toggleNavbar() {
 		this.showMenu = !this.showMenu;
 	}
-
-	private MapBase = {
-		Satélite: tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-			attribution: '',
-			maxNativeZoom: 19,
-			maxZoom: 23,
-		}),
-
-		Callejero: tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-			attribution: '',
-			maxNativeZoom: 19,
-			maxZoom: 23,
-		}),
-
-		Topográfico: tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
-			attribution: '',
-			maxNativeZoom: 19,
-			maxZoom: 23,
-		}),
-	};
 
 	constructor(private router: Router) {}
 	ngOnInit() {}
@@ -47,13 +24,13 @@ export class PortalComponent implements AfterViewInit, OnInit {
 	// reference to https://tailwindcss.com/docs/hover-focus-and-other-states#open-closed-state
 
 	ngAfterViewInit(): void {
-		this.map = new Map('map', {zoomControl: false, minZoom: 6}).setView([-9.1963858, -75.3050354], 6);
+		this._portalService.map = new Map('map', {zoomControl: false, minZoom: 6}).setView([-9.1963858, -75.3050354], 6);
 
 		tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
 			attribution: '',
 			maxNativeZoom: 19,
 			maxZoom: 23,
-		}).addTo(this.map);
+		}).addTo(this._portalService.map);
 		//Capas Base
 
 		//Capas Cartograficas
@@ -64,7 +41,7 @@ export class PortalComponent implements AfterViewInit, OnInit {
 				format: 'image/png',
 				transparent: true,
 			})
-			.addTo(this.map);
+			.addTo(this._portalService.map);
 		const ignprovincia = tileLayer.wms('https://www.idep.gob.pe/geoportal/services/DATOS_GEOESPACIALES/L%C3%8DMITES/MapServer/WMSServer', {
 			layers: '2',
 			format: 'image/png',
@@ -87,7 +64,7 @@ export class PortalComponent implements AfterViewInit, OnInit {
 				format: 'image/png',
 				transparent: true,
 			})
-			.addTo(this.map);
+			.addTo(this._portalService.map);
 		const cofopri = tileLayer.wms('http://172.16.16.33:8081/geoserver/GeoCatastro/wms?', {
 			layers: 'tg_cartografia',
 			format: 'image/png',
@@ -97,17 +74,4 @@ export class PortalComponent implements AfterViewInit, OnInit {
 	}
 
 	// reference to https://tailwindcss.com/docs/hover-focus-and-other-states#open-closed-state
-
-	mapabase(mapaValor: 'Satélite' | 'Callejero' | 'Topográfico') {
-		//document.querySelector(".leaflet-control-attribution").innerHTML = document.querySelector(".leaflet-control-attribution").innerHTML.substring(0, document.querySelector(".leaflet-control-attribution").innerHTML.indexOf('|'));
-
-		if (this.map && this.MapBase[mapaValor]) {
-			this.map.eachLayer((layer) => {
-				if (layer !== this.MapBase[mapaValor]) {
-					this.map?.removeLayer(layer);
-				}
-			});
-			this.MapBase[mapaValor].addTo(this.map);
-		}
-	}
 }
