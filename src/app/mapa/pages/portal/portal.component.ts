@@ -1,7 +1,6 @@
 import {AfterViewInit, Component, OnInit, inject} from '@angular/core';
 import {Map, tileLayer} from 'leaflet';
 import * as L from 'leaflet';
-import 'leaflet-draw';
 import {PortalService} from './service/portal.service';
 
 @Component({
@@ -20,12 +19,59 @@ export class PortalComponent implements AfterViewInit, OnInit {
 
 	constructor() {}
 	ngOnInit() {}
-	gg() {
+	gg2() {
 		L.Control.Draw.prototype.initialize();
 		this._portalService.map?.fire('enabled', {handler: 'polyline'}, true);
 	}
 	// reference to https://tailwindcss.com/docs/hover-focus-and-other-states#open-closed-state
+	gg() {
+		// Para activar la herramienta de dibujo de polígonos
 
+		this._portalService.drawControl?._toolbars.draw._modes.polyline.handler.enable();
+	}
+	gg3() {
+		// Para activar la herramienta de dibujo de polígonos
+
+		this._portalService.drawControl?._toolbars.edit._modes.edit.handler.enable();
+	}
+	gg4(e: any) {
+		const layers = e.layers;
+		layers.eachLayer((layer: any) => {
+			this._portalService.drawnItems?.addLayer(layer);
+		});
+	}
+	gg5() {
+		this._portalService.drawControl?._toolbars.edit._modes.edit.handler.disable();
+
+		// this._portalService.drawControl?._toolbars.edit._modes.edit.handler.prototype.save();
+		// console.log(' =>', this._portalService.drawControl?._toolbars.edit._modes.edit.handler.prototype.save());
+
+		// L.EditToolbar.Edit.prototype.save();
+		// this._portalService.drawControl?._toolbars.edit._modes.edit.handler.save();
+		// L.EditToolbar.Edit.prototype.save();
+		// L.EditToolbar.Delete.prototype.save();
+		// L.EditToolbar.Edit.prototype.save();
+		// this._portalService.drawControl?._toolbars.edit._startMeasuring();
+		// this._portalService.drawControl?._toolbars.edit.handler.save();
+		// this._portalService.drawControl?._toolbars.edit._modes.edit.handler._save();
+	}
+
+	gg6() {
+		let t: L.LayerGroup<any> = new L.LayerGroup();
+		// const t = this._portalService.drawnItems?.getLayer;
+		// this._portalService.drawnItems?.eachLayer((layer) => {
+		// 	t.addLayer(layer);
+		// });
+		this._portalService.drawnItems?.eachLayer((e: any) => {
+			t.addLayer(e);
+		});
+		console.log(' =>', t);
+		// this._portalService.drawnItems?.eachLayer((layer: any) => {
+		// 	this._portalService.drawnItems?.addLayer(layer);
+		// });
+
+		this._portalService.map?.fire(L.Draw.Event.EDITED, {layers: t});
+	}
 	ngAfterViewInit(): void {
 		this._portalService.map = new Map('map', {
 			zoomControl: false,
@@ -33,49 +79,45 @@ export class PortalComponent implements AfterViewInit, OnInit {
 			maxZoom: 23,
 			layers: [this._portalService.MapBase.Satélite],
 		}).setView([-9.1963858, -75.3050354], 6);
+
 		this._portalService.map?.on('click', (e) => {
 			if (this._portalService.MedirMapa) {
 				this._portalService.medir(e);
+			}
+		});
+		this._portalService.map?.on('dblclick', (e) => {
+			if (this._portalService.MedirMapa) {
+				// this._portalService.drawControl?._toolbars.draw._modes.polyline.handler.e
 			}
 		});
 
 		// #
 
 		// #
-		const drawnItems = new L.FeatureGroup();
-		this._portalService.map.addLayer(drawnItems);
-		// L.drawLocal.draw.handlers.polyline.tooltip.start;
-		const drawControl = new L.Control.Draw({
-			edit: {
-				featureGroup: drawnItems,
-			},
-			draw: {
-				polygon: {
-					allowIntersection: false,
-					drawError: {
-						color: '#e1e100',
-						message: 'Formas no pueden cruzarse.',
-					},
-				},
-				circle: false,
-			},
-		});
-		this._portalService.map.addControl(drawControl);
+		// this._portalService.drawnItems = new L.FeatureGroup();
+		this._portalService.drawnItems = new L.FeatureGroup().addTo(this._portalService.map);
 
 		this._portalService.map.on(L.Draw.Event.CREATED, (e: any) => {
-			console.log(' =>', L.Draw.Event.CREATED);
-			console.log(' =>', e.layerType);
 			const layer = e.layer;
-			drawnItems.addLayer(layer);
-		});
-		// L.drawLocal.draw.toolbar.buttons.polyline;
-		// L.drawLocal.draw.handlers.polygon.tooltip.start;
-		// L.drawLocal.draw.toolbar.buttons.polyline = 'jj';
-		L.drawLocal.draw.handlers.polyline.tooltip.start;
+			console.log('ddddddddd =>');
 
-		// 		type = "enabled",
-		// data = {handler: 'polyline',
-		// propagate = undefined
+			this._portalService.drawnItems?.addLayer(layer);
+		});
+		this._portalService.map.on(L.Draw.Event.EDITED, (e: any) => {
+			console.log('ss =>', e);
+			const layers = e.layers;
+			layers.eachLayer((layer: any) => {
+				this._portalService.drawnItems?.addLayer(layer);
+			});
+		});
+
+		this._portalService.drawControl = new L.Control.Draw({
+			edit: {
+				featureGroup: this._portalService.drawnItems,
+			},
+		});
+		this._portalService.map.addLayer(this._portalService.drawnItems);
+		this._portalService.map.addControl(this._portalService.drawControl);
 		// #
 		//Capas Cartograficas
 		//Instituo Geofisico del Peru

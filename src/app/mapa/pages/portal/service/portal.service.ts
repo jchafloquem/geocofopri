@@ -1,12 +1,14 @@
 import {Injectable} from '@angular/core';
 import * as L from 'leaflet';
-import {Map, control, tileLayer} from 'leaflet';
+import {Map, tileLayer, Control, FeatureGroup} from 'leaflet';
 
 @Injectable({
 	providedIn: 'root',
 })
 export class PortalService {
-	map: L.Map | undefined;
+	map: Map | undefined;
+	drawnItems: FeatureGroup<any> | undefined;
+	drawControl: Control.Draw | any | undefined;
 	zoom? = 0;
 	private firstLatLng?: L.LatLng;
 	private secondLatLng?: L.LatLng;
@@ -119,8 +121,7 @@ export class PortalService {
 			// Dibujamos una línea entre los dos puntos
 			if (this.map !== undefined) {
 				L.polyline([this.firstLatLng, e.latlng], {
-					color: 'red',
-					fillColor: '#ffcc00',
+					color: '#2A5E8A',
 				}).addTo(this.map);
 				this.firstLatLng = e.latlng;
 			}
