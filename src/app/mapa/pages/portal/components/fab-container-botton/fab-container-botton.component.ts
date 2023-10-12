@@ -23,7 +23,6 @@ export class FabContainerBottonComponent {
 		{
 			icon: 'edit',
 			descripcion: '',
-			f: () => this._portalService.mapabase('Callejero'),
 			childrenView: false,
 			children: [
 				{
@@ -70,7 +69,6 @@ export class FabContainerBottonComponent {
 		{
 			icon: 'search',
 			descripcion: '',
-			f: () => this._portalService.mapabase('Topográfico'),
 			childrenView: false,
 
 			children: [
@@ -91,25 +89,21 @@ export class FabContainerBottonComponent {
 		{
 			icon: 'map',
 			descripcion: '',
-			f: () => this._portalService.mapabase('Topográfico'),
 			childrenView: false,
 		},
 		{
 			icon: 'upload',
 			descripcion: '',
-			f: () => this._portalService.mapabase('Topográfico'),
 			childrenView: false,
 		},
 		{
 			icon: 'download',
 			descripcion: '',
-			f: () => this._portalService.mapabase('Topográfico'),
 			childrenView: false,
 		},
 		{
 			icon: 'home',
 			descripcion: '',
-			f: () => this._portalService.mapabase('Topográfico'),
 			childrenView: false,
 		},
 	];

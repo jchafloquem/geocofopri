@@ -1,8 +1,7 @@
-import {AfterViewInit, Component, ElementRef, OnInit, ViewChild, inject} from '@angular/core';
-import {NavigationStart, Router} from '@angular/router';
-import {Map, control, tileLayer} from 'leaflet';
-import {Subscription} from 'rxjs';
+import {AfterViewInit, Component, OnInit, inject} from '@angular/core';
+import {Map, tileLayer} from 'leaflet';
 import * as L from 'leaflet';
+import 'leaflet-draw';
 import {PortalService} from './service/portal.service';
 
 @Component({
@@ -19,9 +18,12 @@ export class PortalComponent implements AfterViewInit, OnInit {
 		this.showMenu = !this.showMenu;
 	}
 
-	constructor(private router: Router) {}
+	constructor() {}
 	ngOnInit() {}
-
+	gg() {
+		L.Control.Draw.prototype.initialize();
+		this._portalService.map?.fire('enabled', {handler: 'polyline'}, true);
+	}
 	// reference to https://tailwindcss.com/docs/hover-focus-and-other-states#open-closed-state
 
 	ngAfterViewInit(): void {
@@ -31,13 +33,50 @@ export class PortalComponent implements AfterViewInit, OnInit {
 			maxZoom: 23,
 			layers: [this._portalService.MapBase.Satélite],
 		}).setView([-9.1963858, -75.3050354], 6);
-		//Capas Base
-		// const ff = new L.control.Measure()
 		this._portalService.map?.on('click', (e) => {
-			if (!this._portalService.MedirMapa) {
+			if (this._portalService.MedirMapa) {
 				this._portalService.medir(e);
 			}
 		});
+
+		// #
+
+		// #
+		const drawnItems = new L.FeatureGroup();
+		this._portalService.map.addLayer(drawnItems);
+		// L.drawLocal.draw.handlers.polyline.tooltip.start;
+		const drawControl = new L.Control.Draw({
+			edit: {
+				featureGroup: drawnItems,
+			},
+			draw: {
+				polygon: {
+					allowIntersection: false,
+					drawError: {
+						color: '#e1e100',
+						message: 'Formas no pueden cruzarse.',
+					},
+				},
+				circle: false,
+			},
+		});
+		this._portalService.map.addControl(drawControl);
+
+		this._portalService.map.on(L.Draw.Event.CREATED, (e: any) => {
+			console.log(' =>', L.Draw.Event.CREATED);
+			console.log(' =>', e.layerType);
+			const layer = e.layer;
+			drawnItems.addLayer(layer);
+		});
+		// L.drawLocal.draw.toolbar.buttons.polyline;
+		// L.drawLocal.draw.handlers.polygon.tooltip.start;
+		// L.drawLocal.draw.toolbar.buttons.polyline = 'jj';
+		L.drawLocal.draw.handlers.polyline.tooltip.start;
+
+		// 		type = "enabled",
+		// data = {handler: 'polyline',
+		// propagate = undefined
+		// #
 		//Capas Cartograficas
 		//Instituo Geofisico del Peru
 		const igndepartamentos = tileLayer

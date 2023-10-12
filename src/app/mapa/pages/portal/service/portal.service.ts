@@ -110,7 +110,7 @@ export class PortalService {
 			if (this.map !== undefined) {
 				L.marker(this.secondLatLng)
 					.addTo(this.map)
-					.bindPopup('Point B<br/>' + e.latlng)
+					.bindPopup('Point B<br/>' + e.latlng + this.medirDistancia(this.firstLatLng, e.latlng))
 					.openPopup();
 			}
 		}
@@ -120,16 +120,17 @@ export class PortalService {
 			if (this.map !== undefined) {
 				L.polyline([this.firstLatLng, e.latlng], {
 					color: 'red',
+					fillColor: '#ffcc00',
 				}).addTo(this.map);
 				this.firstLatLng = e.latlng;
 			}
-			// this.medirDistancia(this.firstLatLng, this.secondLatLng);
 		}
 	}
 
-	private medirDistancia(latlng1: L.LatLng, latlng2: L.LatLng) {
+	private medirDistancia(latlng1: L.LatLng, latlng2: L.LatLng): string {
 		const dis = this.map?.distance(latlng1, latlng2);
-		console.log(' =>', dis && dis * 0.001);
+		// console.log(' =>', dis && dis * 0.001);
+		return dis ? '' + dis * 0.001 : '';
 		// Aquí puedes implementar la lógica para medir la distancia
 		// entre this.firstLatLng y this.secondLatLng
 	}
