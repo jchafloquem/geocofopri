@@ -1,11 +1,8 @@
-<div class="absolute bottom-4 right-0 mb-7 mr-7 flex flex-col-reverse   ">
+<div class="absolute bottom-4 right-0 mb-4 mr-4 flex flex-col-reverse   ">
 	<div class="relative cursor-pointer flex justify-center items-center w-12  h-12 ">
 		<div (click)="mapaBaseView=!mapaBaseView"
 			class="btn-tool flex justify-center items-center w-full  h-full text-white bg-[#1bc5bd] hover:bg-white  hover:text-[#1bc5bd]  transition duration-700 ease-in-out  rounded-full">
 			<mat-icon class="material-icons-round animate-spin ">settings</mat-icon>
-
-
-
 		</div>
 		<div *ngIf="mapaBaseView" class="absolute flex flex-col-reverse bottom-16 gap-2  ">
 			<div *ngFor="let data of data" class="relative cursor-pointer flex justify-center items-center w-12  h-12 ">

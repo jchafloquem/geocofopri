@@ -6,6 +6,7 @@ import {Map, tileLayer, Control, FeatureGroup} from 'leaflet';
 	providedIn: 'root',
 })
 export class PortalService {
+	menu = true;
 	map: Map | undefined;
 	drawnItems: FeatureGroup<any> | undefined;
 	drawControl: Control.Draw | any | undefined;

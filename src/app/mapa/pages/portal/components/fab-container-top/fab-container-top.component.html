@@ -1,45 +1,46 @@
-<div class="absolute top-auto right-0 mt-7 mr-7 flex flex-col gap-4 ">
-  <div class=" relative w-12 h-12 rounded-full bg-[#eb990f]">
-    <div (click)="mapaBaseView=!mapaBaseView" class="btn-tool cursor-pointer flex justify-center items-center w-full h-full">
-      <span>1</span>
-    </div>
-    <div *ngIf="mapaBaseView" class="absolute flex flex-row top-0 right-16 gap-4 ">
-      <div (click)="_portalService.mapabase('Satélite')"
-        class="relative cursor-pointer flex justify-center items-center w-12 h-12 bg-[#eb990f] rounded-full">
-        <div class="btn-tool flex justify-center items-center w-full h-full">
-          <span>11</span>
-        </div>
-      </div>
-      <div (click)="_portalService.mapabase('Callejero')"
-        class="relative cursor-pointer flex justify-center items-center w-12 h-12 bg-[#eb990f] rounded-full">
-        <div class="btn-tool flex justify-center items-center w-full h-full">
-          <span>12</span>
-        </div>
-      </div>
-      <div (click)="_portalService.mapabase('Topográfico')"
-        class="relative cursor-pointer flex justify-center items-center w-12 h-12 bg-[#eb990f] rounded-full">
-        <div class="btn-tool flex justify-center items-center w-full h-full">
-          <span>13</span>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div
-    class="btn-tool cursor-pointer relative w-12 h-12 rounded-full bg-[#eb990f] hover:bg-white hover:text-[#eb990f] transition duration-300 ease-in-out">
-    <div class="flex justify-center items-center w-full h-full">
-      <span>2</span>
-    </div>
-  </div>
-  <div
-    class="btn-tool cursor-pointer relative w-12 h-12 rounded-full bg-[#eb990f] hover:bg-white hover:text-[#eb990f]  transition duration-300 ease-in-out">
-    <div class="flex justify-center items-center w-full h-full">
-      <span>3</span>
-    </div>
-  </div>
-  <div
-    class="btn-tool cursor-pointer relative w-12 h-12 rounded-full bg-[#1bc5bd] hover:text-[#eb990f]  transition duration-300 ease-in-out">
-    <div class="flex justify-center items-center w-full h-full">
-      <span>4</span>
-    </div>
-  </div>
+<div class="absolute top-auto right-0 mt-4 mr-4 flex flex-col gap-2 ">
+	<div class=" relative w-12 h-12 rounded-full bg-[#eb990f]">
+		<div id="animated-div" (click)="mapaBaseView=!mapaBaseView"
+			class="btn-tool cursor-pointer flex justify-center items-center w-full h-full">
+			<span></span>
+		</div>
+		<div *ngIf="mapaBaseView" class="absolute flex flex-row top-0 right-16 gap-4 ">
+			<div (click)="_portalService.mapabase('Satélite')"
+				class="relative cursor-pointer flex justify-center items-center w-12 h-12 bg-black rounded-full">
+				<div id="animated-div-base" class="satelite btn-tool flex justify-center items-center w-full h-full">
+					<span></span>
+				</div>
+			</div>
+			<div (click)="_portalService.mapabase('Callejero')"
+				class="relative cursor-pointer flex justify-center items-center w-12 h-12 bg-black rounded-full">
+				<div id="animated-div-base" class="osm btn-tool flex justify-center items-center w-full h-full">
+					<span></span>
+				</div>
+			</div>
+			<div (click)="_portalService.mapabase('Topográfico')"
+				class="relative cursor-pointer flex justify-center items-center w-12 h-12 bg-black rounded-full">
+				<div id="animated-div-base" class="topo btn-tool flex justify-center items-center w-full h-full">
+					<span></span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div
+		class="btn-tool cursor-pointer relative w-12 h-12 rounded-full bg-[#eb990f] hover:bg-white hover:text-[#eb990f] transition duration-300 ease-in-out">
+		<div class="flex justify-center items-center w-full h-full">
+			<span>2</span>
+		</div>
+	</div>
+	<div
+		class="btn-tool cursor-pointer relative w-12 h-12 rounded-full bg-[#eb990f] hover:bg-white hover:text-[#eb990f]  transition duration-300 ease-in-out">
+		<div class="flex justify-center items-center w-full h-full">
+			<span>3</span>
+		</div>
+	</div>
+	<div
+		class="btn-tool cursor-pointer relative w-12 h-12 rounded-full bg-[#1bc5bd] hover:text-[#eb990f]  transition duration-300 ease-in-out">
+		<div class="flex justify-center items-center w-full h-full">
+			<span>4</span>
+		</div>
+	</div>
 </div>

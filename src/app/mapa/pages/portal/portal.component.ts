@@ -9,6 +9,9 @@ import {PortalService} from './service/portal.service';
 	styleUrls: ['./portal.component.scss'],
 })
 export class PortalComponent implements AfterViewInit, OnInit {
+	height = ` calc(100vh - 64px) `;
+	menu = true;
+
 	public _portalService = inject(PortalService);
 
 	public floatButton = false;
@@ -57,20 +60,22 @@ export class PortalComponent implements AfterViewInit, OnInit {
 	}
 
 	gg6() {
-		let t: L.LayerGroup<any> = new L.LayerGroup();
+		this._portalService.drawControl?._toolbars.edit._modes.edit.handler.removeAllLayers();
+
+		// let t: L.LayerGroup<any> = new L.LayerGroup();
 		// const t = this._portalService.drawnItems?.getLayer;
 		// this._portalService.drawnItems?.eachLayer((layer) => {
 		// 	t.addLayer(layer);
 		// });
-		this._portalService.drawnItems?.eachLayer((e: any) => {
-			t.addLayer(e);
-		});
-		console.log(' =>', t);
+		// this._portalService.drawnItems?.eachLayer((e: any) => {
+		// 	t.addLayer(e);
+		// });
+		// console.log(' =>', t);
 		// this._portalService.drawnItems?.eachLayer((layer: any) => {
 		// 	this._portalService.drawnItems?.addLayer(layer);
 		// });
 
-		this._portalService.map?.fire(L.Draw.Event.EDITED, {layers: t});
+		// this._portalService.map?.fire(L.Draw.Event.EDITED, {layers: t});
 	}
 	ngAfterViewInit(): void {
 		this._portalService.map = new Map('map', {
