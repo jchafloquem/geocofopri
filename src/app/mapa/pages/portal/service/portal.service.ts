@@ -1,6 +1,8 @@
 import {Injectable} from '@angular/core';
 import * as L from 'leaflet';
 import {Map, tileLayer, Control, FeatureGroup} from 'leaflet';
+import {environment} from 'src/environments/environment';
+import {Layers, Limites} from './data';
 
 @Injectable({
 	providedIn: 'root',
@@ -11,6 +13,8 @@ export class PortalService {
 	drawnItems: FeatureGroup<any> | undefined;
 	drawControl: Control.Draw | any | undefined;
 	zoom? = 0;
+	Limites = Limites;
+	Layers = Layers;
 	private firstLatLng?: L.LatLng;
 	private secondLatLng?: L.LatLng;
 	public MedirMapa = false;
@@ -135,5 +139,181 @@ export class PortalService {
 		return dis ? '' + dis * 0.001 : '';
 		// Aquí puedes implementar la lógica para medir la distancia
 		// entre this.firstLatLng y this.secondLatLng
+	}
+
+	Load() {
+		let endpoint = environment.BasePath + 'resources/config.json?id=' + new Date().getTime();
+		fetch(endpoint, {
+			method: 'GET',
+			headers: {
+				'Content-type': 'application/json',
+			},
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((response) => {
+				this.Layers = response;
+				this.getLimites();
+			})
+			.catch((error) => {
+				console.error('load', error);
+			});
+	}
+	getLimites() {
+		let endpoint = environment.BasePath + 'resources/distritos.json?id=' + new Date().getTime();
+		fetch(endpoint, {
+			method: 'GET',
+			headers: {
+				'Content-type': 'application/json',
+			},
+		})
+			.then((response) => {
+				return response.json();
+			})
+			.then((response) => {
+				this.Limites = response;
+				// Mapa.Fill();
+				// Mapa.TOC(Mapa.Layers);
+			})
+			.catch((error) => {
+				console.error('load', error);
+			});
+	}
+	Activo(idDist: string) {
+		let geom = this.Limites.Distritos.find((resp) => resp.iddist == idDist);
+		if (geom) {
+			let coords = geom.envelope.coordinates[0].map((resp: any[]) => resp.reverse());
+			let envelope = L.polygon(coords);
+			this.map?.fitBounds(envelope.getBounds());
+			geom.envelope.coordinates[0].map((resp: any[]) => resp.reverse());
+		}
+	}
+	getLayer(ide: any) {
+		let myLayer: any[] = [];
+		this.map?.eachLayer((layer) => {
+			// if (layer.id == ide) {
+			// 	myLayer.push(layer);
+			// }
+			console.log('layer =>', layer);
+		});
+		return myLayer;
+	}
+	addLayerExtra(
+		tema: string,
+		grupo: string,
+		idLayer: string,
+		layer: {
+			ide: number;
+			nombre: string;
+			url: string;
+			capas: string[];
+			tipo: string;
+			activa: boolean;
+			transparente: boolean;
+			formato: string;
+			orden: number;
+			opacidad: number;
+			isLeyenda: boolean;
+			isInfo: boolean;
+			template: string;
+		}
+	) {
+		console.log(' =>', tema, grupo, idLayer, layer);
+		let viewparams: any[] = [];
+		// let NivelDepartamento = document.querySelector('#Mapa-Filter-Departamento');
+		// let NivelProvincia = document.querySelector('#Mapa-Filter-Provincia');
+		// let NivelDistrito = document.querySelector('#Mapa-Filter-Distrito');
+
+		// if (NivelDistrito) {
+		// 	if (parseInt(NivelDistrito.value) > 0) {
+		// 		viewparams.push('ubigeo:' + NivelDistrito.value);
+
+		// 		viewparams.push('dpto:' + NivelDepartamento.value);
+		// 		viewparams.push('prov:' + NivelProvincia.value);
+		// 		viewparams.push('dist:' + NivelDistrito.value);
+		// 	} else if (parseInt(NivelProvincia.value) > 0) {
+		// 		viewparams.push('ubigeo:' + NivelProvincia.value);
+
+		// 		viewparams.push('dpto:' + NivelDepartamento.value);
+		// 		viewparams.push('prov:' + NivelProvincia.value);
+		// 	} else if (parseInt(NivelDepartamento.value) > 0) {
+		// 		viewparams.push('ubigeo:' + NivelDepartamento.value);
+
+		// 		viewparams.push('dpto:' + NivelDepartamento.value);
+		// 		viewparams.push('iddpto:' + NivelDepartamento.value);
+		// 	} else {
+		// 	}
+		// }
+
+		// if (layer.params) {
+		// 	layer.params.forEach((item, i) => {
+		// 		let filter = document.querySelector(
+		// 			".clsLayerFiltro[data-tema='" +
+		// 				tema +
+		// 				"'][data-grupo='" +
+		// 				grupo +
+		// 				"'][data-layer='" +
+		// 				idLayer +
+		// 				"'][data-filtro='" +
+		// 				item.filter +
+		// 				"']"
+		// 		);
+		// 		if (filter) {
+		// 			viewparams.push(item.viewparams + ':' + filter.value);
+		// 		}
+		// 	});
+		// }
+
+		if (layer.activa) {
+			if (layer.activa) {
+				if (this.map !== undefined) {
+					let lyr = L.tileLayer
+						.wms(environment.ServerMap + layer.url, {
+							layers: layer.capas[0],
+							transparent: layer.transparente,
+							format: layer.formato,
+							id: 'layer_' + tema + '_' + grupo + '_' + idLayer + '_' + layer.ide,
+						})
+						.addTo(this.map);
+					lyr.setZIndex(layer.orden);
+					lyr.setOpacity(layer.opacidad / 100);
+					// lyr.id = 'layer_' + tema + '_' + grupo + '_' + idLayer + '_' + layer.ide;
+					// lyr.grupo = grupo;
+					// lyr.tema = tema;
+					// lyr.idLayer = idLayer;
+					// lyr.idLayerExtra = layer.ide;
+				}
+			} else {
+				let ide_layer = 'layer_' + tema + '_' + grupo + '_' + idLayer + '_' + layer.ide;
+				let existeLayer = this.getLayer(ide_layer);
+				existeLayer.forEach((itemLayer, i) => {
+					this.map?.removeLayer(itemLayer);
+				});
+			}
+		}
+		if (!layer.activa) {
+			let ide_layer = 'layer_' + tema + '_' + grupo + '_' + idLayer + '_' + layer.ide;
+			let existeLayer = this.getLayer(ide_layer);
+			existeLayer.forEach((itemLayer, i) => {
+				this.map?.removeLayer(itemLayer);
+			});
+			if (this.map !== undefined) {
+				let lyr = L.tileLayer
+					.wms(environment.ServerMap + layer.url, {
+						layers: layer.capas[0],
+						transparent: layer.transparente,
+						format: layer.formato,
+					})
+					.addTo(this.map);
+				lyr.setZIndex(layer.orden);
+				lyr.setOpacity(layer.opacidad / 100);
+				// lyr.id = 'layer_' + tema + '_' + grupo + '_' + idLayer + '_' + layer.ide;
+				// lyr.grupo = grupo;
+				// lyr.tema = tema;
+				// lyr.idLayer = idLayer;
+				// lyr.idLayerExtra = layer.ide;
+			}
+		}
 	}
 }

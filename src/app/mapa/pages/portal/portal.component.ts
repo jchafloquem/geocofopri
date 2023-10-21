@@ -2,6 +2,7 @@ import {AfterViewInit, Component, OnInit, inject} from '@angular/core';
 import {Map, tileLayer} from 'leaflet';
 import * as L from 'leaflet';
 import {PortalService} from './service/portal.service';
+import {ProyectosService} from './service/proyectos.service';
 
 @Component({
 	selector: 'app-portal',
@@ -13,6 +14,7 @@ export class PortalComponent implements AfterViewInit, OnInit {
 	menu = true;
 
 	public _portalService = inject(PortalService);
+	public _proyectosService = inject(ProyectosService);
 
 	public floatButton = false;
 	showMenu = false;
@@ -76,6 +78,12 @@ export class PortalComponent implements AfterViewInit, OnInit {
 		// });
 
 		// this._portalService.map?.fire(L.Draw.Event.EDITED, {layers: t});
+	}
+	gg7() {
+		this._portalService.Load();
+	}
+	gg8() {
+		this._portalService.Activo('150117');
 	}
 	ngAfterViewInit(): void {
 		this._portalService.map = new Map('map', {

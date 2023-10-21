@@ -16,8 +16,18 @@ import {MatIconModule} from '@angular/material/icon';
 // *
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 @NgModule({
 	declarations: [LayoutPageComponent, PortalComponent, FabContainerBottonComponent, FabContainerTopComponent, MenuPortalComponent],
-	imports: [CommonModule, MapaRoutingModule, SharedModule, MatTooltipModule, MatIconModule, LeafletModule, LeafletDrawModule],
+	imports: [
+		CommonModule,
+		MapaRoutingModule,
+		SharedModule,
+		MatTooltipModule,
+		MatIconModule,
+		LeafletModule,
+		LeafletDrawModule,
+		MatSlideToggleModule,
+	],
 })
 export class MapaModule {}
