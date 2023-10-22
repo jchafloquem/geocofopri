@@ -20,8 +20,18 @@ export class MenuPortalComponent {
 		} else if (this.subMenu == value) {
 			this._portalService.menu = !this._portalService.menu;
 		}
+		setTimeout(() => {
+			this._portalService.map?.invalidateSize();
+		}, 200);
 	}
 	toogleMenu() {
 		this._portalService.menu = !this._portalService.menu;
+		setTimeout(() => {
+			this._portalService.map?.invalidateSize();
+		}, 200);
+	}
+	onElementClick(event: MouseEvent) {
+		this._portalService.clientX = event.clientX;
+		this._portalService.clientY = event.clientY;
 	}
 }

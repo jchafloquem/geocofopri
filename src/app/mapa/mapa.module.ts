@@ -17,8 +17,10 @@ import {MatIconModule} from '@angular/material/icon';
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
 import {LeafletDrawModule} from '@asymmetrik/ngx-leaflet-draw';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import {FormsModule} from '@angular/forms';
+import { ModalMoveComponent } from './pages/portal/components/modal-move/modal-move.component';
 @NgModule({
-	declarations: [LayoutPageComponent, PortalComponent, FabContainerBottonComponent, FabContainerTopComponent, MenuPortalComponent],
+	declarations: [LayoutPageComponent, PortalComponent, FabContainerBottonComponent, FabContainerTopComponent, MenuPortalComponent, ModalMoveComponent],
 	imports: [
 		CommonModule,
 		MapaRoutingModule,
@@ -28,6 +30,7 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 		LeafletModule,
 		LeafletDrawModule,
 		MatSlideToggleModule,
+		FormsModule,
 	],
 })
 export class MapaModule {}

@@ -1,4 +1,5 @@
-<div class="transition-opacity duration-300 h-full bg-white">
+<div class="transition-opacity duration-300 h-full bg-white/50">
+	<app-modal-move *ngIf="_portalService.modalMove"></app-modal-move>
 	<div class="flex flex-row flex-nowrap h-full">
 		<!-- *Menu Principal -->
 		<div class="min-w-[80px] bg-white flex flex-col items-center gap-2 py-2 shadow-xl z-10 cursor-pointer">
@@ -61,25 +62,29 @@
 						<ng-container *ngIf="Grupos.isOpen">
 							<div *ngFor="let Layers of Grupos.Layers  let LayersIndex = index">
 								<div class=" px-2 py-1 hover:bg-blue-500/25  flex flex-row justify-between">
-									<div class="flex flex-row">
+									<div class="flex flex-row items-center">
 										<mat-icon class="material-icons-round text-base flex items-center justify-center   ">
 											layers
 										</mat-icon>
 										{{Layers.nombre}}
 									</div>
-									<div class="flex flex-row">
-										<mat-slide-toggle class="example-margin" [color]="color" [checked]="Layers.activa" [disabled]="disabled"
-											(click)="_portalService.addLayerExtra(capaIndex.toString(),GruposIndex.toString(),Layers.ide.toString(),Layers) ">
+									<div class="relative flex flex-row">
+										<mat-slide-toggle class="example-margin" [color]="color" [(ngModel)]="Layers.activa" [disabled]="disabled"
+											(click)="_portalService.addLayerExtra(capaIndex.toString(),GruposIndex.toString(),Layers.ide.toString(),Layers,Layers.activa) ">
 										</mat-slide-toggle>
-										<mat-icon class="material-icons-round text-base flex items-center justify-center cursor-pointer hover:text-red-500  ">
+										<mat-icon class="material-icons-round text-base flex items-center justify-center cursor-pointer hover:text-red-500"
+											(click)="onElementClick($event ); _portalService.modalMove=!_portalService.modalMove">
 											settings
 										</mat-icon>
+
+										<!-- <div class="absolute w-80 h-20 bg-red-500 top-0 left-0 z-10">gg</div> -->
 									</div>
 								</div>
 							</div>
 						</ng-container>
 					</div>
 				</ng-container>
+
 			</div>
 		</div>
 		<!-- #proyectos -->

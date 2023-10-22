@@ -85,6 +85,9 @@ export class PortalComponent implements AfterViewInit, OnInit {
 	gg8() {
 		this._portalService.Activo('150117');
 	}
+	gg9() {
+		this._portalService.gg();
+	}
 	ngAfterViewInit(): void {
 		this._portalService.map = new Map('map', {
 			zoomControl: false,
