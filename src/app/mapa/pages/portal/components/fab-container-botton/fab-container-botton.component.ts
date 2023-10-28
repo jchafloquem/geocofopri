@@ -18,11 +18,11 @@ export interface data {
 export class FabContainerBottonComponent {
 	public _portalService = inject(PortalService);
 	mapaBaseView = false;
-	mapaBaseView2 = false;
 	data: data[] = [
 		{
 			icon: 'edit',
-			descripcion: '',
+			descripcion:
+				'Con este conjunto de herramientas podrás dibujar y editar el área o polígono de interés. También podrás descargar información del área dibujada',
 			childrenView: false,
 			children: [
 				{
@@ -57,30 +57,31 @@ export class FabContainerBottonComponent {
 		},
 		{
 			icon: 'square_foot',
-			descripcion: '',
+			descripcion: 'Esta herramienta te servira para medir distancias',
 			childrenView: false,
 			f: () => (this._portalService.MedirMapa = !this._portalService.MedirMapa),
 		},
 		{
 			icon: 'print',
-			descripcion: '',
+			descripcion: 'Con esta herramienta puedes imprimir el área consultada',
 			childrenView: false,
+			f: () => (this._portalService.modalMove.generarMapa = !this._portalService.modalMove.generarMapa),
 		},
 		{
 			icon: 'search',
-			descripcion: '',
+			descripcion: 'Con esta herramienta podrás acercarte o alejarte del área consultada',
 			childrenView: false,
 
 			children: [
 				{
 					icon: 'zoom_in',
-					descripcion: '',
+					descripcion: 'Aumentar',
 					f: () => this._portalService.zoomIn(),
 					childrenView: false,
 				},
 				{
 					icon: 'zoom_out',
-					descripcion: '',
+					descripcion: 'Reducir',
 					f: () => this._portalService.zoomOut(),
 					childrenView: false,
 				},
@@ -88,22 +89,25 @@ export class FabContainerBottonComponent {
 		},
 		{
 			icon: 'map',
-			descripcion: '',
+			descripcion: 'Plotear puntos',
 			childrenView: false,
+			f: () => (this._portalService.modalMove.plotearPuntos = !this._portalService.modalMove.plotearPuntos),
 		},
 		{
 			icon: 'upload',
-			descripcion: '',
+			descripcion: 'Aquí podrás subir un archivo en formato shapefile y comprimido en formato zip para visualizarlo en el mapa',
 			childrenView: false,
+			f: () => (this._portalService.modalMove.subirShape = !this._portalService.modalMove.subirShape),
 		},
 		{
 			icon: 'download',
-			descripcion: '',
+			descripcion: 'Descargar información',
 			childrenView: false,
+			f: () => (this._portalService.modalMove.descargarInfo = !this._portalService.modalMove.descargarInfo),
 		},
 		{
 			icon: 'home',
-			descripcion: '',
+			descripcion: 'Mapa inicial',
 			childrenView: false,
 		},
 	];

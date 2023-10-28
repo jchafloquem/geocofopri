@@ -8,10 +8,42 @@ import {Layers, Limites} from './data';
 	providedIn: 'root',
 })
 export class PortalService {
+	LayerConfig!: {
+		tema: string;
+		grupo: string;
+		idLayer: string;
+		layer: {
+			ide: number;
+			nombre: string;
+			url: string;
+			capas: string[];
+			tipo: string;
+			activa: boolean;
+			transparente: boolean;
+			formato: string;
+			orden: number;
+			opacidad: number;
+			isLeyenda: boolean;
+			isInfo: boolean;
+			template: string;
+		};
+		activa: boolean;
+	};
+	nameLayer = '';
 	clientX = 0;
 	clientY = 0;
 	menu = true;
-	modalMove = false;
+
+	modalMove = {
+		configuracionCapa: false,
+		contactanos: false,
+		descargarInfo: false,
+		filtroUbigeo: false,
+		generarMapa: false,
+		leyenda: false,
+		plotearPuntos: false,
+		subirShape: false,
+	};
 	map: Map | undefined;
 	drawnItems: FeatureGroup<any> | undefined;
 	drawControl: Control.Draw | any | undefined;
@@ -53,25 +85,15 @@ export class PortalService {
 	mapabase(mapaValor: 'Satélite' | 'Callejero' | 'Topográfico') {
 		//document.querySelector(".leaflet-control-attribution").innerHTML = document.querySelector(".leaflet-control-attribution").innerHTML.substring(0, document.querySelector(".leaflet-control-attribution").innerHTML.indexOf('|'));
 		console.log(' =>', mapaValor);
-		this.map?.removeLayer(this.MapBase.Satélite);
-		this.map?.removeLayer(this.MapBase.Callejero);
-		this.map?.removeLayer(this.MapBase.Topográfico);
+		let mapaBase = ['Satélite', 'Callejero', 'Topográfico'];
+		let FmapaBase = mapaBase.filter((x) => x !== mapaValor);
+		FmapaBase.forEach((x) => {
+			console.log(x);
+			if (x == 'Satélite') this.map?.removeLayer(this.MapBase.Satélite);
+			if (x == 'Callejero') this.map?.removeLayer(this.MapBase.Callejero);
+			if (x == 'Topográfico') this.map?.removeLayer(this.MapBase.Topográfico);
+		});
 		this.map?.addLayer(this.MapBase[mapaValor]);
-
-		// const mapv = ['Satélite', 'Callejero', 'Topográfico'].filter((x) => x !== mapaValor);
-		// if (this.map && this.MapBase[mapaValor]) {
-		// 	this.map.eachLayer((layer) => {
-		// 		console.log(' =>', layer);
-		// 		console.log(' =>', this.MapBase[mapaValor]);
-		// 		if (layer !== this.MapBase[mapaValor] && layer.options.attribution === '') {
-		// 			console.log(' =>', layer);
-		// 			this.map?.removeLayer(layer);
-		// 			if (this.map) {
-		// 				this.MapBase[mapaValor].addTo(this.map);
-		// 			}
-		// 		}
-		// 	});
-		// }
 	}
 	zoomIn() {
 		this.zoom = this.map?.getZoom();
@@ -242,6 +264,7 @@ export class PortalService {
 						layers: layer.capas[0],
 						transparent: layer.transparente,
 						format: layer.formato,
+						maxZoom: 23,
 						id: 'layer_' + tema + '_' + grupo + '_' + idLayer + '_' + layer.ide,
 					})
 					.addTo(this.map);
@@ -276,5 +299,9 @@ export class PortalService {
 			// 	// lyr.idLayerExtra = layer.ide;
 			// }
 		}
+	}
+	toogleClosed(key: string) {
+		const propertyKey = key as keyof typeof this.modalMove;
+		this.modalMove[propertyKey] = !this.modalMove[propertyKey];
 	}
 }

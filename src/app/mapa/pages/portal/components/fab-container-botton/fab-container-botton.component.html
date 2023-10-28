@@ -7,21 +7,24 @@
 		<div *ngIf="mapaBaseView" class="absolute flex flex-col-reverse bottom-16 gap-2  ">
 			<div *ngFor="let data of data" class="relative cursor-pointer flex justify-center items-center w-12  h-12 ">
 				<div (click)="data.childrenView=!data.childrenView;data?.f()"
-					class="btn-tool flex justify-center items-center w-full  h-full text-white bg-[#1bc5bd] hover:bg-white  hover:text-[#eb9913]  transition duration-700 ease-in-out  rounded-full">
+					class="btn-tool flex justify-center items-center w-full  h-full   hover:bg-white  hover:text-[#eb9913] text-white bg-[#1bc5bd] transition duration-700 ease-in-out  rounded-full"
+					[ngClass]="{'btn-tool-activate' :data.childrenView  }">
 					<mat-icon class="material-icons-round ">{{data.icon}}</mat-icon>
-					<mat-icon
-						class="material-icons-round hover:animate-ping     bottom-0 left-7 absolute  w-3.5 h-3.5 bg-[#1bc5bd]   hover:text-white  border-2     rounded-full flex justify-center items-center"
-						#tooltip="matTooltip" matTooltip="Info about the action" [matTooltipPosition]="'above'">info</mat-icon>
+
+					<mat-icon *ngIf="data.descripcion !==''"
+						class="z-10 material-icons-round hover:animate-ping     bottom-0 left-7 absolute  w-3.5 h-3.5 hover:bg-white bg-[#1bc5bd]   text-white  hover:text-[#1bc5bd]  border-2     rounded-full flex justify-center items-center"
+						#tooltip="matTooltip" matTooltip="{{data.descripcion}}" [matTooltipPosition]="'above'">info</mat-icon>
 				</div>
 				<div *ngIf="data.childrenView" class="absolute flex flex-row top-0 right-16 gap-4 ">
 					<div *ngFor="let children of data.children" (click)="children?.f()"
 						class="relative cursor-pointer flex justify-center items-center w-12  h-12 ">
 						<div
-							class="btn-tool flex justify-center items-center w-full  h-full text-[#eb9913]  bg-white hover:bg-[#eb9913]   hover:text-white  transition duration-700 ease-in-out  rounded-full">
+							class="btn-tool flex justify-center items-center w-full  h-full text-[#eb9913]  bg-white hover:bg-[#eb9913]   hover:text-white  transition duration-700 ease-in-out  rounded-full"
+							[ngClass]="{'btn-tool-activate' :children.childrenView  }">
 							<mat-icon class="material-icons-round ">{{children.icon}}</mat-icon>
-							<mat-icon
-								class="material-icons-round hover:animate-ping     bottom-0 left-7 absolute  w-3.5 h-3.5 bg-white hover:bg-white text-[#eb9913] hover:text-white border-2     rounded-full flex justify-center items-center"
-								#tooltip="matTooltip" matTooltip="Info about the action" [matTooltipPosition]="'above'">info</mat-icon>
+							<mat-icon *ngIf="children.descripcion !==''"
+								class="z-10 material-icons-round hover:animate-ping     bottom-0 left-7 absolute  w-3.5 h-3.5 hover:bg-white bg-[#eb9913]   text-white  hover:text-[#eb9913]  border-2     rounded-full flex justify-center items-center"
+								#tooltip="matTooltip" matTooltip="{{children.descripcion}}" [matTooltipPosition]="'above'">info</mat-icon>
 						</div>
 					</div>
 				</div>

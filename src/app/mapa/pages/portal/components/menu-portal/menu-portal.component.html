@@ -1,6 +1,7 @@
 <div class="transition-opacity duration-300 h-full bg-white/50">
-	<app-modal-move *ngIf="_portalService.modalMove"></app-modal-move>
-	<div class="flex flex-row flex-nowrap h-full">
+
+
+	<div class="z-20 flex flex-row flex-nowrap h-full">
 		<!-- *Menu Principal -->
 		<div class="min-w-[80px] bg-white flex flex-col items-center gap-2 py-2 shadow-xl z-10 cursor-pointer">
 			<div (click)="toogleMenu()" class="w-14 h-14 cursor-pointer">
@@ -27,7 +28,7 @@
 		<!-- *Menu Secundario -->
 		<!-- #capas -->
 		<div *ngIf="subMenu =='capas'"
-			class="w-full bg-white transition-all duration-500 shadow-xl z-[5] overflow-y-auto flex flex-col items-center  "
+			class="  w-full bg-white transition-all duration-500 shadow-xl   overflow-y-auto flex flex-col items-center  "
 			[style.opacity]="_portalService.menu ? '1' : '0'" [style.display]="_portalService.menu ? 'block' : 'none'">
 			<div class="bg-red-500 w-full h-9 flex flex-row justify-between items-center p-2">
 				<div class="p-2 text-white">Capas Disponibles</div>
@@ -70,10 +71,15 @@
 									</div>
 									<div class="relative flex flex-row">
 										<mat-slide-toggle class="example-margin" [color]="color" [(ngModel)]="Layers.activa" [disabled]="disabled"
-											(click)="_portalService.addLayerExtra(capaIndex.toString(),GruposIndex.toString(),Layers.ide.toString(),Layers,Layers.activa) ">
+											(click)="_portalService.addLayerExtra(capaIndex.toString(),GruposIndex.toString(),Layers.ide.toString(),Layers,Layers.activa);_portalService.modalMove.configuracionCapa=false ">
 										</mat-slide-toggle>
-										<mat-icon class="material-icons-round text-base flex items-center justify-center cursor-pointer hover:text-red-500"
-											(click)="onElementClick($event ); _portalService.modalMove=!_portalService.modalMove">
+										<mat-icon *ngIf="!Layers.activa"
+											class="material-icons-round text-base flex items-center justify-center cursor-no-drop   ">
+											settings
+										</mat-icon>
+										<mat-icon *ngIf=" Layers.activa"
+											class="material-icons-round text-base flex items-center justify-center cursor-pointer hover:text-red-500"
+											(click)="onElementClick($event ,capaIndex.toString(),GruposIndex.toString(),Layers.ide.toString(),Layers,Layers.activa); _portalService.modalMove.configuracionCapa=!_portalService.modalMove.configuracionCapa;">
 											settings
 										</mat-icon>
 
@@ -89,7 +95,7 @@
 		</div>
 		<!-- #proyectos -->
 		<div *ngIf="subMenu =='proyectos'"
-			class="w-full bg-white transition-all duration-500 shadow-xl z-[5] overflow-y-auto flex flex-col items-center gap-2 "
+			class="  w-full bg-white transition-all duration-500 shadow-xl   overflow-y-auto flex flex-col items-center gap-2 "
 			[style.opacity]="_portalService.menu ? '1' : '0'" [style.display]="_portalService.menu ? 'block' : 'none'">
 			<div class="bg-red-500 w-full h-9 flex flex-row justify-between items-center p-2">
 				<div class="p-2 text-white">Proyecto</div>

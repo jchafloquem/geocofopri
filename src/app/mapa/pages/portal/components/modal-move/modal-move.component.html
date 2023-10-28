@@ -1,12 +1,12 @@
-<div class="modal absolute w-32 bg-white  shadow-2xl z-10   ">
+<div class="z-50 absolute   bg-white  shadow-2xl  modal ">
 	<div class="flex flex-row justify-between cursor-move p-2 bg-red-500 text-white items-center " (mousedown)="startDragging($event)"
-		(mousemove)="onDrag($event)" (mouseup)="stopDragging()">
-		<div>Ajuste</div>
-		<mat-icon class="material-icons-round text-white cursor-pointer" (click)="_portalService.modalMove=!_portalService.modalMove">
+		(mousemove)="onDrag($event)" (mouseup)="stopDragging()" (touchstart)="startDraggingTouch($event)" (touchmove)="onDragTouch($event)"
+		(touchend)="stopDragging()">
+		<div>{{titulo}}</div>
+		<mat-icon class="material-icons-round text-white cursor-pointer" (click)="toogleClosed()">
 			close
 		</mat-icon>
 	</div>
-	<div class="p-2">
-		<!-- Contenido del modal -->ff
-	</div>
+
+	<ng-content></ng-content>
 </div>

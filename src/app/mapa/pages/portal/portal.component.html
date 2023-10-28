@@ -7,8 +7,8 @@
 <button mat-raised-button class='' color='primary' (click)='gg6()'>gg6</button> -->
 <!-- <button mat-raised-button class='' color='primary' (click)='gg7()'>gg7</button> -->
 <!-- <button mat-raised-button class='' color='primary' (click)='gg8()'>gg8</button> -->
-
 <button mat-raised-button class='' color='primary' (click)='gg9()'>gg9</button>
+
 <div class="flex flex-row flex-nowrap">
 	<div class="z-10  block  transition-all duration-300  " [style.height]="height "
 		[style.width]="_portalService.menu ? 'calc(380px - (100vw - 100%))' : 'calc(80px)' ">
@@ -29,3 +29,37 @@
 		</div>
 	</div>
 </div>
+
+
+
+<app-modal-move *ngIf="_portalService.modalMove.configuracionCapa" [closed]="'configuracionCapa'">
+	<app-configuracion-capa></app-configuracion-capa>
+</app-modal-move>
+<app-modal-move *ngIf="_portalService.modalMove.contactanos" [closed]="'contactanos'" [titulo]="'Contactanos'" [centerX]="true"
+	[centerY]="true" [width]="300">
+	<app-contactanos></app-contactanos>
+</app-modal-move>
+<app-modal-move *ngIf="_portalService.modalMove.descargarInfo" [closed]="'descargarInfo'" [titulo]="'Descargar Información'"
+	[centerX]="true" [centerY]="true" [width]="300">
+	<app-descargar-info></app-descargar-info>
+</app-modal-move>
+<app-modal-move *ngIf="_portalService.modalMove.filtroUbigeo" [closed]="'filtroUbigeo'" [titulo]="'Filtro Ubigeo'" [centerX]="true"
+	[centerY]="true" [width]="300">
+	<app-filtro-ubigeo></app-filtro-ubigeo>
+</app-modal-move>
+<app-modal-move *ngIf="_portalService.modalMove.generarMapa" [closed]="'generarMapa'" [titulo]="'Generar Mapa'" [centerX]="true"
+	[centerY]="true" [width]="300">
+	<app-generar-mapa></app-generar-mapa>
+</app-modal-move>
+<app-modal-move *ngIf="_portalService.modalMove.leyenda" [closed]="'leyenda'" [titulo]="'Leyenda'" [centerX]="true" [centerY]="true"
+	[width]="300">
+	<app-leyenda></app-leyenda>
+</app-modal-move>
+<app-modal-move *ngIf="_portalService.modalMove.plotearPuntos" [closed]="'plotearPuntos'" [titulo]="'Plotear Puntos'" [centerX]="true"
+	[centerY]="true" [width]="300">
+	<app-plotear-puntos></app-plotear-puntos>
+</app-modal-move>
+<app-modal-move *ngIf="_portalService.modalMove.subirShape" [closed]="'subirShape'" [titulo]="'Subir Shape'" [centerX]="true"
+	[centerY]="true" [width]="300">
+	<app-subir-shape></app-subir-shape>
+</app-modal-move>

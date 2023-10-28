@@ -30,8 +30,38 @@ export class MenuPortalComponent {
 			this._portalService.map?.invalidateSize();
 		}, 200);
 	}
-	onElementClick(event: MouseEvent) {
+	onElementClick(
+		event: MouseEvent,
+		tema: string,
+		grupo: string,
+		idLayer: string,
+		layer: {
+			ide: number;
+			nombre: string;
+			url: string;
+			capas: string[];
+			tipo: string;
+			activa: boolean;
+			transparente: boolean;
+			formato: string;
+			orden: number;
+			opacidad: number;
+			isLeyenda: boolean;
+			isInfo: boolean;
+			template: string;
+		},
+		activa: boolean
+	) {
 		this._portalService.clientX = event.clientX;
 		this._portalService.clientY = event.clientY;
+		this._portalService.nameLayer = layer.nombre;
+		this._portalService.LayerConfig = {
+			tema,
+			grupo,
+			idLayer,
+			layer,
+			activa,
+		};
+		// this._portalService.nameLayer = 'layer_' + tema + '_' + grupo + '_' + idLayer + '_' + layer.ide;
 	}
 }
