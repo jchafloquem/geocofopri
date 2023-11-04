@@ -39,7 +39,7 @@ export class PortalService {
 		contactanos: false,
 		descargarInfo: false,
 		filtroUbigeo: false,
-		generarMapa: false,
+		generarMapa: true,
 		leyenda: false,
 		plotearPuntos: false,
 		subirShape: false,

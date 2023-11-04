@@ -23,7 +23,9 @@ export class PortalComponent implements AfterViewInit, OnInit {
 	}
 
 	constructor() {}
-	ngOnInit() {}
+	ngOnInit() {
+		this._portalService.gg();
+	}
 	gg2() {
 		L.Control.Draw.prototype.initialize();
 		this._portalService.map?.fire('enabled', {handler: 'polyline'}, true);

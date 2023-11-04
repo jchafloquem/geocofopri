@@ -12,6 +12,7 @@ import {MenuPortalComponent} from './pages/portal/components/menu-portal/menu-po
 // *
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatIconModule} from '@angular/material/icon';
+import {MatButtonModule} from '@angular/material/button';
 
 // *
 import {LeafletModule} from '@asymmetrik/ngx-leaflet';
@@ -36,6 +37,7 @@ import {ConfiguracionCapaComponent} from './pages/portal/dialog/configuracion-ca
 		SharedModule,
 		MatTooltipModule,
 		MatIconModule,
+		MatButtonModule,
 		LeafletModule,
 		LeafletDrawModule,
 		MatSlideToggleModule,
