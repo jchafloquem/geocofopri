@@ -108,6 +108,7 @@ export class FabContainerBottonComponent {
 		{
 			icon: 'home',
 			descripcion: 'Mapa inicial',
+			f: () => this._portalService.map?.setView([-9.1963858, -75.3050354], 6),
 			childrenView: false,
 		},
 	];
