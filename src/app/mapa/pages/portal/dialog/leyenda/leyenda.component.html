@@ -1,1 +1,36 @@
-<p>leyenda works!</p>
+<div class="flex flex-col gap-2 p-2 w-full items-center justify-center">
+	<div class="flex flex-row w-full justify-between items-center">
+		<div>Leyenda Capa Disponibles </div>
+		<div class=" cursor-pointer flex items-center py-[6px] px-[9px] text-sm bg-blue-200 text-[#1D71B8] rounded-md" (click)="leyendaList()">
+			<span>Actualizar</span>
+			<mat-icon class="material-icons-round text-[#1D71B8] hover:animate-spin ">
+				autorenew
+			</mat-icon>
+		</div>
+	</div>
+	<div *ngFor="let item of leyenda" class=" w-full ">
+		<div class=" w-full border-0 border-b border-dashed border-black/50 flex flex-col justify-start">
+			<div>{{item.nombre}}</div>
+			<ng-container *ngIf="item.grupos.length!==0">
+				<ng-container *ngFor="let grupos of item.grupos">
+					<ng-container *ngIf="grupos.layer.length!==0">
+						<div>{{grupos.nombre}}</div>
+						<ng-container *ngFor="let layer of grupos.layer">
+							<div class="flex justify-between ">
+								<div class="flex flex-row items-center">
+									<mat-icon class="material-icons-round text-base flex items-center justify-center ">
+										layers
+									</mat-icon>
+									{{layer.nombre}}
+								</div>
+								<div>
+									<img src="./assets/{{layer.imagenes}}" alt="" width="24px" height="24px">
+								</div>
+							</div>
+						</ng-container>
+					</ng-container>
+				</ng-container>
+			</ng-container>
+		</div>
+	</div>
+</div>
