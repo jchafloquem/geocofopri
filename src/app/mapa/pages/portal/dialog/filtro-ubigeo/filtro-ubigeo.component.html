@@ -1,1 +1,32 @@
-<p>filtro-ubigeo works!</p>
+<div class="flex flex-col gap-2 p-4 w-full items-center justify-center">
+	<mat-form-field appearance="outline" subscriptSizing="dynamic">
+		<mat-label>Departamento</mat-label>
+		<input type="text" placeholder="Departamento" matInput [formControl]="DepartamentosControl" [matAutocomplete]="auto">
+		<mat-icon class="material-icons-round cursor-pointer" matSuffix (click)="DepartamentosControl.reset()">clear</mat-icon>
+		<mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+			<mat-option *ngFor="let Departamento of filteredDepartamentos | async" [value]="Departamento.nombdep">
+				{{Departamento.nombdep}}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+	<mat-form-field appearance="outline" subscriptSizing="dynamic">
+		<mat-label>Provincia</mat-label>
+		<input type="text" placeholder="Provincia" matInput [formControl]="ProvinciasControl" [matAutocomplete]="auto2">
+		<mat-icon class="material-icons-round cursor-pointer" matSuffix (click)="ProvinciasControl.reset()">clear</mat-icon>
+		<mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+			<mat-option *ngFor="let Provincia of filteredProvincias | async" [value]="Provincia.nombprov">
+				{{Provincia.nombprov}}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+	<mat-form-field appearance="outline" subscriptSizing="dynamic">
+		<mat-label>Distrito</mat-label>
+		<input type="text" placeholder="Distrito" matInput [formControl]="DistritosControl" [matAutocomplete]="auto3">
+		<mat-icon class="material-icons-round cursor-pointer" matSuffix (click)="DistritosControl.reset()">clear</mat-icon>
+		<mat-autocomplete autoActiveFirstOption #auto3="matAutocomplete">
+			<mat-option *ngFor="let Distrito of filteredDistritos | async" [value]="Distrito.nombdist">
+				{{Distrito.nombdist}}
+			</mat-option>
+		</mat-autocomplete>
+	</mat-form-field>
+</div>
