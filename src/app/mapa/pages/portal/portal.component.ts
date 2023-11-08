@@ -18,11 +18,16 @@ export class PortalComponent implements AfterViewInit {
 
 	public floatButton = false;
 	showMenu = false;
+	cargaSpinner: boolean = true;
 	toggleNavbar() {
 		this.showMenu = !this.showMenu;
 	}
 
 	constructor() {}
+
+	spinner() {
+		this.cargaSpinner = false;
+	}
 
 	ngAfterViewInit(): void {
 		this._portalService.map = new Map('map', {
@@ -42,6 +47,11 @@ export class PortalComponent implements AfterViewInit {
 			if (this._portalService.MedirMapa) {
 				// this._portalService.drawControl?._toolbars.draw._modes.polyline.handler.e
 			}
+		});
+		this._portalService.MapBase.Satélite.on('load', () => {
+			console.log(' =>');
+			// La función que deseas ejecutar después de que el mapa se haya cargado
+			this.spinner();
 		});
 
 		// #
