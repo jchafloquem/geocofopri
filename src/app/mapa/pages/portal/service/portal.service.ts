@@ -39,7 +39,7 @@ export class PortalService {
 		contactanos: false,
 		descargarInfo: false,
 		filtroUbigeo: false,
-		generarMapa: true,
+		generarMapa: false,
 		leyenda: false,
 		plotearPuntos: false,
 		subirShape: false,
@@ -131,6 +131,7 @@ export class PortalService {
 
 		if (!this.firstLatLng) {
 			this.firstLatLng = e.latlng;
+			console.log(' =>', e.latlng);
 			if (this.map !== undefined) {
 				L.marker(this.firstLatLng)
 					.addTo(this.map)

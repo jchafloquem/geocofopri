@@ -1,36 +1,20 @@
 <app-navbar></app-navbar>
-
-<!-- <button mat-raised-button class='' color='primary' (click)='gg()'>gg</button>
-<button mat-raised-button class='' color='primary' (click)='gg3()'>gg3</button>
-<button mat-raised-button class='' color='primary' (click)='gg4(null)'>gg4</button>
-<button mat-raised-button class='' color='primary' (click)='gg5()'>gg5</button>
-<button mat-raised-button class='' color='primary' (click)='gg6()'>gg6</button> -->
-<!-- <button mat-raised-button class='' color='primary' (click)='gg7()'>gg7</button> -->
-<!-- <button mat-raised-button class='' color='primary' (click)='gg8()'>gg8</button> -->
-<button mat-raised-button class='' color='primary' (click)='gg9()'>gg9</button>
-
 <div class="flex flex-row flex-nowrap">
-	<div class="z-10  block  transition-all duration-300  " [style.height]="height "
+	<div class="z-10 block transition-all duration-300 " [style.height]="height "
 		[style.width]="_portalService.menu ? 'calc(380px - (100vw - 100%))' : 'calc(80px)' ">
-		<app-menu-portal></app-menu-portal>
+		<app-menu-portal class="print:hidden"></app-menu-portal>
 	</div>
-	<div class="  ">
-		<div class="   block    transition-all duration-300   " [style.height]="height "
+	<div class=" ">
+		<div class=" block transition-all duration-300 " [style.height]="height "
 			[style.width]="_portalService.menu ? 'calc(100vw - 380px)' : 'calc((100vw - 80px) - (100vw - 100%))' ">
-
-
-
 			<div class="block">
 				<div class="z-0" id="map"></div>
-				<app-fab-container-top></app-fab-container-top>
-				<app-fab-container-botton></app-fab-container-botton>
-
+				<app-fab-container-top class="print:hidden"></app-fab-container-top>
+				<app-fab-container-botton class="print:hidden"></app-fab-container-botton>
 			</div>
 		</div>
 	</div>
 </div>
-
-
 
 <app-modal-move *ngIf="_portalService.modalMove.configuracionCapa" [closed]="'configuracionCapa'">
 	<app-configuracion-capa></app-configuracion-capa>

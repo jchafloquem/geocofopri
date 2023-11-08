@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, inject} from '@angular/core';
+import {AfterViewInit, Component, inject} from '@angular/core';
 import {Map, tileLayer} from 'leaflet';
 import * as L from 'leaflet';
 import {PortalService} from './service/portal.service';
@@ -9,7 +9,7 @@ import {ProyectosService} from './service/proyectos.service';
 	templateUrl: './portal.component.html',
 	styleUrls: ['./portal.component.scss'],
 })
-export class PortalComponent implements AfterViewInit, OnInit {
+export class PortalComponent implements AfterViewInit {
 	height = ` calc(100vh - 64px) `;
 	menu = true;
 
@@ -23,75 +23,10 @@ export class PortalComponent implements AfterViewInit, OnInit {
 	}
 
 	constructor() {}
-	ngOnInit() {
-		this._portalService.gg();
-	}
-	gg2() {
-		L.Control.Draw.prototype.initialize();
-		this._portalService.map?.fire('enabled', {handler: 'polyline'}, true);
-	}
-	// reference to https://tailwindcss.com/docs/hover-focus-and-other-states#open-closed-state
-	gg() {
-		// Para activar la herramienta de dibujo de polígonos
 
-		this._portalService.drawControl?._toolbars.draw._modes.polyline.handler.enable();
-	}
-	gg3() {
-		// Para activar la herramienta de dibujo de polígonos
-
-		this._portalService.drawControl?._toolbars.edit._modes.edit.handler.enable();
-	}
-	gg4(e: any) {
-		const layers = e.layers;
-		layers.eachLayer((layer: any) => {
-			this._portalService.drawnItems?.addLayer(layer);
-		});
-	}
-	gg5() {
-		this._portalService.drawControl?._toolbars.edit._modes.edit.handler.disable();
-
-		// this._portalService.drawControl?._toolbars.edit._modes.edit.handler.prototype.save();
-		// console.log(' =>', this._portalService.drawControl?._toolbars.edit._modes.edit.handler.prototype.save());
-
-		// L.EditToolbar.Edit.prototype.save();
-		// this._portalService.drawControl?._toolbars.edit._modes.edit.handler.save();
-		// L.EditToolbar.Edit.prototype.save();
-		// L.EditToolbar.Delete.prototype.save();
-		// L.EditToolbar.Edit.prototype.save();
-		// this._portalService.drawControl?._toolbars.edit._startMeasuring();
-		// this._portalService.drawControl?._toolbars.edit.handler.save();
-		// this._portalService.drawControl?._toolbars.edit._modes.edit.handler._save();
-	}
-
-	gg6() {
-		this._portalService.drawControl?._toolbars.edit._modes.edit.handler.removeAllLayers();
-
-		// let t: L.LayerGroup<any> = new L.LayerGroup();
-		// const t = this._portalService.drawnItems?.getLayer;
-		// this._portalService.drawnItems?.eachLayer((layer) => {
-		// 	t.addLayer(layer);
-		// });
-		// this._portalService.drawnItems?.eachLayer((e: any) => {
-		// 	t.addLayer(e);
-		// });
-		// console.log(' =>', t);
-		// this._portalService.drawnItems?.eachLayer((layer: any) => {
-		// 	this._portalService.drawnItems?.addLayer(layer);
-		// });
-
-		// this._portalService.map?.fire(L.Draw.Event.EDITED, {layers: t});
-	}
-	gg7() {
-		this._portalService.Load();
-	}
-	gg8() {
-		this._portalService.Activo('150117');
-	}
-	gg9() {
-		this._portalService.gg();
-	}
 	ngAfterViewInit(): void {
 		this._portalService.map = new Map('map', {
+			// renderer: L.canvas(),
 			zoomControl: false,
 			minZoom: 6,
 			maxZoom: 23,
@@ -117,16 +52,7 @@ export class PortalComponent implements AfterViewInit, OnInit {
 
 		this._portalService.map.on(L.Draw.Event.CREATED, (e: any) => {
 			const layer = e.layer;
-			console.log('ddddddddd =>');
-
 			this._portalService.drawnItems?.addLayer(layer);
-		});
-		this._portalService.map.on(L.Draw.Event.EDITED, (e: any) => {
-			console.log('ss =>', e);
-			const layers = e.layers;
-			layers.eachLayer((layer: any) => {
-				this._portalService.drawnItems?.addLayer(layer);
-			});
 		});
 
 		this._portalService.drawControl = new L.Control.Draw({
@@ -148,6 +74,7 @@ export class PortalComponent implements AfterViewInit, OnInit {
 				transparent: true,
 			})
 			.addTo(this._portalService.map);
+
 		const ignprovincia = tileLayer.wms('https://www.idep.gob.pe/geoportal/services/DATOS_GEOESPACIALES/L%C3%8DMITES/MapServer/WMSServer', {
 			attribution: 'ignprovincia',
 

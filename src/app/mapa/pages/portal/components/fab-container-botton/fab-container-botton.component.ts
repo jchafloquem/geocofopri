@@ -1,5 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {PortalService} from '../../service/portal.service';
+import * as L from 'leaflet';
 
 export interface data {
 	icon: string;
@@ -20,43 +21,104 @@ export class FabContainerBottonComponent {
 	mapaBaseView = false;
 	data: data[] = [
 		{
-			icon: 'edit',
+			icon: 'architecture',
 			descripcion:
 				'Con este conjunto de herramientas podrás dibujar y editar el área o polígono de interés. También podrás descargar información del área dibujada',
 			childrenView: false,
 			children: [
 				{
-					icon: 'polyline',
-
-					descripcion: '',
-					f: () => this._portalService.mapabase('Callejero'),
-					childrenView: false,
-				},
-				{
-					icon: 'architecture',
-
-					descripcion: '',
-					f: () => this._portalService.mapabase('Callejero'),
-					childrenView: false,
-				},
-				{
-					icon: 'draw',
-
-					descripcion: '',
-					f: () => this._portalService.mapabase('Callejero'),
-					childrenView: false,
-				},
-				{
 					icon: 'shape_line',
-
-					descripcion: '',
-					f: () => this._portalService.mapabase('Callejero'),
+					descripcion: 'Generar polilínea',
+					f: () => this._portalService.drawControl?._toolbars.draw._modes.polyline.handler.enable(),
+					childrenView: false,
+				},
+				{
+					icon: 'polyline',
+					descripcion: 'Generar polígono',
+					f: () => this._portalService.drawControl?._toolbars.draw._modes.polygon.handler.enable(),
+					childrenView: false,
+				},
+				{
+					icon: 'circle',
+					descripcion: 'Generar circulo',
+					f: () => this._portalService.drawControl?._toolbars.draw._modes.circle.handler.enable(),
+					childrenView: false,
+				},
+				{
+					icon: 'square',
+					descripcion: 'Generar cuadrado',
+					f: () => this._portalService.drawControl?._toolbars.draw._modes.rectangle.handler.enable(),
+					childrenView: false,
+				},
+				{
+					icon: 'location_on',
+					descripcion: 'Generar marcador',
+					f: () => this._portalService.drawControl?._toolbars.draw._modes.marker.handler.enable(),
+					childrenView: false,
+				},
+				{
+					icon: 'pin_drop',
+					descripcion: 'Generar marcador circular',
+					f: () => this._portalService.drawControl?._toolbars.draw._modes.circlemarker.handler.enable(),
 					childrenView: false,
 				},
 			],
 		},
 		{
-			icon: 'square_foot',
+			icon: 'draw',
+			descripcion:
+				'Con este conjunto de herramientas podrás dibujar y editar el área o polígono de interés. También podrás descargar información del área dibujada',
+			childrenView: false,
+			children: [
+				{
+					// editar
+					icon: 'draw',
+					descripcion: '',
+					f: () => this._portalService.drawControl?._toolbars.edit._modes.edit.handler.enable(),
+					childrenView: false,
+				},
+				{
+					// guardar editado
+					icon: 'save',
+					descripcion: '',
+					f: () => this._portalService.drawControl?._toolbars.edit._modes.edit.handler.disable(),
+					childrenView: false,
+				},
+				{
+					// cancelar editado
+					icon: 'cancel',
+					descripcion: '',
+					f: () => this._portalService.drawControl?._toolbars.edit.disable(),
+					childrenView: false,
+				},
+
+				//  *
+
+				{
+					// editar
+					icon: 'delete',
+					descripcion: '',
+					f: () => this._portalService.drawControl?._toolbars.edit._modes.remove.handler.enable(),
+					childrenView: false,
+				},
+				{
+					// editar
+					icon: 'restore',
+					descripcion: '',
+					f: () => this._portalService.drawControl?._toolbars.edit._modes.remove.handler.revertLayers(),
+					childrenView: false,
+				},
+				{
+					// editar
+					icon: 'delete_forever',
+					descripcion: '',
+					f: () => this._portalService.drawControl?._toolbars.edit._modes.remove.handler.disable(),
+					childrenView: false,
+				},
+			],
+		},
+		{
+			icon: 'straighten',
 			descripcion: 'Esta herramienta te servira para medir distancias',
 			childrenView: false,
 			f: () => (this._portalService.MedirMapa = !this._portalService.MedirMapa),
@@ -65,7 +127,8 @@ export class FabContainerBottonComponent {
 			icon: 'print',
 			descripcion: 'Con esta herramienta puedes imprimir el área consultada',
 			childrenView: false,
-			f: () => (this._portalService.modalMove.generarMapa = !this._portalService.modalMove.generarMapa),
+			// f: () => (this._portalService.modalMove.generarMapa = !this._portalService.modalMove.generarMapa),
+			f: () => window.print(),
 		},
 		{
 			icon: 'search',

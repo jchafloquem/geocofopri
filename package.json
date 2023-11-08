@@ -22,9 +22,11 @@
     "@angular/router": "^16.1.0",
     "@asymmetrik/ngx-leaflet": "^16.0.1",
     "@asymmetrik/ngx-leaflet-draw": "^16.0.0",
+    "@types/proj4": "^2.5.4",
     "leaflet": "^1.9.4",
     "leaflet-draw": "^1.0.4",
     "ngx-spinner": "^16.0.2",
+    "proj4": "^2.9.2",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
